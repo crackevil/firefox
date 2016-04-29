@@ -1,0 +1,27 @@
+locale branding en-US en-US/locale/branding/
+locale browser en-US en-US/locale/browser/
+locale browser-region en-US en-US/locale/browser-region/
+locale devtools en-US en-US/locale/en-US/devtools/client/
+locale devtools-shared en-US en-US/locale/en-US/devtools/shared/
+locale pdf.js en-US en-US/locale/pdfviewer/
+content branding browser/content/branding/ contentaccessible=yes
+content browser browser/content/browser/ contentaccessible=yes
+skin browser classic/1.0 browser/skin/classic/browser/
+skin communicator classic/1.0 browser/skin/classic/communicator/
+content webide webide/content/
+skin webide classic/1.0 webide/skin/
+content devtools devtools/content/
+skin devtools classic/1.0 devtools/skin/
+override chrome://global/locale/appstrings.properties chrome://browser/locale/appstrings.properties
+override chrome://global/locale/netError.dtd chrome://browser/locale/netError.dtd
+override chrome://mozapps/locale/downloads/settingsChange.dtd chrome://browser/locale/downloads/settingsChange.dtd
+resource search-plugins chrome://browser/locale/searchplugins/
+overlay chrome://browser/content/browser.xul chrome://browser/content/report-phishing-overlay.xul
+overlay chrome://browser/content/browser.xul chrome://browser/content/win6BrowserOverlay.xul os=WINNT osversion>=6
+overlay chrome://browser/content/places/places.xul chrome://browser/content/places/downloadsViewOverlay.xul
+overlay chrome://global/content/viewPartialSource.xul chrome://browser/content/viewSourceOverlay.xul
+overlay chrome://global/content/viewSource.xul chrome://browser/content/viewSourceOverlay.xul
+override chrome://global/content/license.html chrome://browser/content/license.html
+override chrome://global/content/netError.xhtml chrome://browser/content/aboutNetError.xhtml
+resource pdf.js pdfjs/content/
+resource devtools devtools/modules/devtools/
