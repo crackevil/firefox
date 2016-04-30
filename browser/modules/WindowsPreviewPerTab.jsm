@@ -107,8 +107,9 @@ function _imageFromURI(doc, uri, privateMode, callback) {
 
 // string? -> imgIContainer
 function getFaviconAsImage(doc, iconurl, privateMode, callback) {
-  if (iconurl)
-    _imageFromURI(doc, NetUtil.newURI(iconurl), privateMode, callback);
+  var iconURI = iconurl ? NetUtil.newURI(iconurl) : null;
+  if (iconURI)
+    _imageFromURI(doc, iconURI, privateMode, callback);
   else
     _imageFromURI(doc, faviconSvc.defaultFavicon, privateMode, callback);
 }
