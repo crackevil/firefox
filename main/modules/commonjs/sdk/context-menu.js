@@ -996,12 +996,12 @@ var MenuWrapper = Class({
       }
 
       let mainWindow = event.target.ownerDocument.defaultView;
-      this.contextMenuContentData = mainWindow.gContextMenuContentData
-      if (!(self.id in this.contextMenuContentData.addonInfo)) {
+      let contextMenuContentData = mainWindow.gContextMenuContentData
+      if (!(self.id in contextMenuContentData.addonInfo)) {
         console.warn("No context menu state data was provided.");
         return;
       }
-      let addonInfo = this.contextMenuContentData.addonInfo[self.id];
+      let addonInfo = contextMenuContentData.addonInfo[self.id];
       lastContextProcessId = addonInfo.processID;
       this.setVisibility(this.items, addonInfo.items, true);
     }
