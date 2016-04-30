@@ -1033,7 +1033,7 @@ SyncEngine.prototype = {
       try {
         try {
           item.decrypt(key);
-        } catch (ex if Utils.isHMACMismatch(ex)) {
+        } catch (ex) {
           let strategy = self.handleHMACMismatch(item, true);
           if (strategy == SyncEngine.kRecoveryStrategy.retry) {
             // You only get one retry.
@@ -1043,7 +1043,7 @@ SyncEngine.prototype = {
               key = self.service.collectionKeys.keyForCollection(self.name);
               item.decrypt(key);
               strategy = null;
-            } catch (ex if Utils.isHMACMismatch(ex)) {
+            } catch (ex) {
               strategy = self.handleHMACMismatch(item, false);
             }
           }
@@ -1076,16 +1076,11 @@ SyncEngine.prototype = {
       let shouldApply;
       try {
         shouldApply = self._reconcile(item);
-      } catch (ex if (ex.code == Engine.prototype.eEngineAbortApplyIncoming)) {
+      } catch (ex) {
         self._log.warn("Reconciliation failed: aborting incoming processing.");
         self._noteApplyFailure();
         failed.push(item.id);
         aborting = ex.cause;
-      } catch (ex if !Async.isShutdownException(ex)) {
-        self._log.warn("Failed to reconcile incoming record " + item.id, ex);
-        self._noteApplyFailure();
-        failed.push(item.id);
-        return;
       }
 
       if (shouldApply) {
@@ -1466,7 +1461,7 @@ SyncEngine.prototype = {
 
           out.encrypt(this.service.collectionKeys.keyForCollection(this.name));
           ok = true;
-        } catch (ex if !Async.isShutdownException(ex)) {
+        } catch (ex ) {
           this._log.warn("Error creating record", ex);
         }
         if (ok) {
@@ -1552,7 +1547,7 @@ SyncEngine.prototype = {
     try {
       this._log.trace("Trying to decrypt a record from the server..");
       test.get();
-    } catch (ex if !Async.isShutdownException(ex)) {
+    } catch (ex) {
       this._log.debug("Failed test decrypt", ex);
     }
 

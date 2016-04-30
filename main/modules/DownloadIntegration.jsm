@@ -227,7 +227,7 @@ this.DownloadIntegration = {
 
       if (this._importedFromSqlite) {
         try {
-          yield this._store.load();
+           this._store.load();
         } catch (ex) {
           Cu.reportError(ex);
         }
@@ -235,14 +235,14 @@ this.DownloadIntegration = {
         let sqliteDBpath = OS.Path.join(OS.Constants.Path.profileDir,
                                         "downloads.sqlite");
 
-        if (yield OS.File.exists(sqliteDBpath)) {
+        if ( OS.File.exists(sqliteDBpath)) {
           let sqliteImport = new DownloadImport(aList, sqliteDBpath);
-          yield sqliteImport.import();
+           sqliteImport.import();
 
-          let importCount = (yield aList.getAll()).length;
+          let importCount = ( aList.getAll()).length;
           if (importCount > 0) {
             try {
-              yield this._store.save();
+               this._store.save();
             } catch (ex) { }
           }
 
@@ -266,7 +266,7 @@ this.DownloadIntegration = {
       // complete initialization of the view used for detecting changes to
       // downloads to be persisted, before other callers get a chance to modify
       // the list without being detected.
-      yield new DownloadAutoSaveView(aList, this._store).initialize();
+       new DownloadAutoSaveView(aList, this._store).initialize();
       new DownloadHistoryObserver(aList);
     }.bind(this));
   },
@@ -314,7 +314,7 @@ this.DownloadIntegration = {
         // This explicitly makes this function a generator for Task.jsm. We
         // need this because calls to the "yield" operator below may be
         // preprocessed out on some platforms.
-        yield undefined;
+         undefined;
         throw new Task.Result(this._downloadsDirectory);
       }
 
@@ -324,7 +324,7 @@ this.DownloadIntegration = {
       // the default Downloads directory.
       let version = parseFloat(Services.sysinfo.getProperty("version"));
       if (version < 6) {
-        directoryPath = yield this._createDownloadsDirectory("Pers");
+        directoryPath =  this._createDownloadsDirectory("Pers");
       } else {
         directoryPath = this._getDirectory("DfltDwnld");
       }
@@ -356,21 +356,21 @@ this.DownloadIntegration = {
           directoryPath = this._getDirectory("Desk");
           break;
         case 1: // Downloads
-          directoryPath = yield this.getSystemDownloadsDirectory();
+          directoryPath =  this.getSystemDownloadsDirectory();
           break;
         case 2: // Custom
           try {
             let directory = Services.prefs.getComplexValue("browser.download.dir",
                                                            Ci.nsIFile);
             directoryPath = directory.path;
-            yield OS.File.makeDir(directoryPath, { ignoreExisting: true });
+             OS.File.makeDir(directoryPath, { ignoreExisting: true });
           } catch(ex) {
             // Either the preference isn't set or the directory cannot be created.
-            directoryPath = yield this.getSystemDownloadsDirectory();
+            directoryPath =  this.getSystemDownloadsDirectory();
           }
           break;
         default:
-          directoryPath = yield this.getSystemDownloadsDirectory();
+          directoryPath =  this.getSystemDownloadsDirectory();
       }
 //@line 452 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\components\jsdownloads\src\DownloadIntegration.jsm"
       throw new Task.Result(directoryPath);
@@ -546,11 +546,11 @@ this.DownloadIntegration = {
           // to match Windows behavior.
           if (zone >= Ci.mozIDownloadPlatform.ZONE_INTERNET) {
             let streamPath = aDownload.target.path + ":Zone.Identifier";
-            let stream = yield OS.File.open(streamPath, { create: true });
+            let stream =  OS.File.open(streamPath, { create: true });
             try {
-              yield stream.write(new TextEncoder().encode("[ZoneTransfer]\r\nZoneId=" + zone + "\r\n"));
+               stream.write(new TextEncoder().encode("[ZoneTransfer]\r\nZoneId=" + zone + "\r\n"));
             } finally {
-              yield stream.close();
+               stream.close();
             }
           }
         } catch (ex) {
@@ -589,7 +589,7 @@ this.DownloadIntegration = {
           options.unixMode = 0o666;
         }
         // On Unix, the umask of the process is respected.
-        yield OS.File.setPermissions(aDownload.target.path, options);
+         OS.File.setPermissions(aDownload.target.path, options);
       } catch (ex) {
         // We should report errors with making the permissions less restrictive
         // or marking the file as read-only on Unix and Mac, but this should not
@@ -706,7 +706,7 @@ this.DownloadIntegration = {
       // If our previous attempts failed, try sending it through
       // the system's external "file:" URL handler.
       gExternalProtocolService.loadUrl(NetUtil.newURI(file));
-      yield undefined;
+       undefined;
     }.bind(this));
 
     if (this.dontOpenFileAndFolder) {
@@ -762,7 +762,7 @@ this.DownloadIntegration = {
       // If launch also fails (probably because it's not implemented), let
       // the OS handler try to open the parent.
       gExternalProtocolService.loadUrl(NetUtil.newURI(parent));
-      yield undefined;
+       undefined;
     }.bind(this));
 
     if (this.dontOpenFileAndFolder) {
@@ -1004,8 +1004,8 @@ this.DownloadObserver = {
         break;
       case "last-pb-context-exited":
         let deferred = Task.spawn(function() {
-          let list = yield Downloads.getList(Downloads.PRIVATE);
-          let downloads = yield list.getAll();
+          let list =  Downloads.getList(Downloads.PRIVATE);
+          let downloads =  list.getAll();
 
           // We can remove the downloads and finalize them in parallel.
           for (let download of downloads) {

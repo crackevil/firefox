@@ -440,7 +440,7 @@ BookmarksEngine.prototype = {
       let guidMap;
       try {
         guidMap = this._buildGUIDMap();
-      } catch (ex if !Async.isShutdownException(ex)) {
+      } catch (ex ) {
         this._log.warn("Error while building GUID map, skipping all other incoming items", ex);
         throw {code: Engine.prototype.eEngineAbortApplyIncoming,
                cause: ex};

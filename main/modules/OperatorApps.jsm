@@ -99,7 +99,7 @@ this.OperatorAppsRegistry = {
 
             entry.copyTo(dstDir, entry.leafName);
           } else {
-            yield this._copyDirectory(entry.path,
+             this._copyDirectory(entry.path,
                                       Path.join(aDst, entry.leafName));
           }
         }
@@ -138,7 +138,7 @@ this.OperatorAppsRegistry = {
         let svSourceDir = FileUtils.getFile(DIRECTORY_NAME,
                                             [SINGLE_VARIANT_SOURCE_DIR]);
 
-        yield this._copyDirectory(svSourceDir.path, svFinalDirName);
+         this._copyDirectory(svSourceDir.path, svFinalDirName);
 
         debug("removing directory:" + svSourceDir.path);
         try {
@@ -253,7 +253,7 @@ this.OperatorAppsRegistry = {
       }
 
       let key = normalizeCode(aMcc) + "-" + normalizeCode(aMnc);
-      let aIdsApp = yield this._getSingleVariantDatas();
+      let aIdsApp =  this._getSingleVariantDatas();
 
       // aIdsApp will be undefined if the singleVariant config file not exist
       // or will have the following format:
@@ -284,7 +284,7 @@ this.OperatorAppsRegistry = {
       debug("installOperatorApps --> aIdsApp:" + JSON.stringify(aIdsApp));
       for (let i = 0; i < aIdsApp.length; i++) {
         let aId = aIdsApp[i];
-        let aMetadata = yield AppsUtils.loadJSONAsync(
+        let aMetadata =  AppsUtils.loadJSONAsync(
                            Path.join(this.appsDir.path, aId, METADATA));
         if (!aMetadata) {
           debug("Error reading metadata file");
@@ -296,7 +296,7 @@ this.OperatorAppsRegistry = {
         let manifest;
         let manifests = [UPDATEMANIFEST, MANIFEST];
         for (let j = 0; j < manifests.length; j++) {
-          manifest = yield AppsUtils.loadJSONAsync(
+          manifest =  AppsUtils.loadJSONAsync(
                         Path.join(this.appsDir.path, aId, manifests[j]));
 
           if (!manifest) {
@@ -323,7 +323,7 @@ this.OperatorAppsRegistry = {
   _getSingleVariantDatas: function() {
     return Task.spawn(function*() {
       let file = Path.join(this.appsDir.path, SINGLE_VARIANT_CONF_FILE);
-      let aData = yield AppsUtils.loadJSONAsync(file);
+      let aData =  AppsUtils.loadJSONAsync(file);
       return aData;
     }.bind(this));
   }

@@ -276,8 +276,7 @@ var OutputGenerator = {
   _addMencloseNotations: function _addMencloseNotations(aOutput, aAccessible) {
     let notations = Utils.getAttributes(aAccessible).notation || 'longdiv';
     aOutput[this.outputOrder === OUTPUT_DESC_FIRST ? 'push' : 'unshift'].apply(
-      aOutput, [for (notation of notations.split(' '))
-        {string: this._getOutputName('notation-' + notation)}
+      aOutput, [
       ]
     );
   },

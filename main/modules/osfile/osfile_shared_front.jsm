@@ -152,7 +152,7 @@ AbstractFile.openUnique = function openUnique(path, options = {}) {
       path: path,
       file: OS.File.open(path, mode)
     };
-  } catch (ex if ex instanceof OS.File.Error && ex.becauseExists) {
+  } catch (ex ) {
     for (let i = 0; i < maxAttempts; ++i) {
       try {
         if (humanReadable) {
@@ -165,7 +165,7 @@ AbstractFile.openUnique = function openUnique(path, options = {}) {
           path: uniquePath,
           file: OS.File.open(uniquePath, mode)
         };
-      } catch (ex if ex instanceof OS.File.Error && ex.becauseExists) {
+      } catch (ex ) {
         // keep trying ...
       }
     }
@@ -337,7 +337,7 @@ AbstractFile.read = function read(path, bytes, options = {}) {
     let decoder;
     try {
       decoder = new TextDecoder(options.encoding);
-    } catch (ex if ex instanceof RangeError) {
+    } catch (ex ) {
       throw OS.File.Error.invalidArgument("Decode");
     }
     return decoder.decode(buffer);
@@ -423,7 +423,7 @@ AbstractFile.writeAtomic =
     if (options.backupTo) {
       try {
         OS.File.move(path, options.backupTo, {noCopy: true});
-      } catch (ex if ex.becauseNoSuchFile) {
+      } catch (ex ) {
         // The file doesn't exist, nothing to backup.
       }
     }
@@ -456,7 +456,7 @@ AbstractFile.writeAtomic =
   if (options.backupTo) {
     try {
       OS.File.move(path, options.backupTo, {noCopy: true});
-    } catch (ex if ex.becauseNoSuchFile) {
+    } catch (ex ) {
       // The file doesn't exist, nothing to backup.
     }
   }

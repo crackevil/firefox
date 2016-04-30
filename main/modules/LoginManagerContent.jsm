@@ -1335,7 +1335,7 @@ var FormLikeFactory = {
       autocomplete: "on",
       // Exclude elements inside the rootElement that are already in a <form> as
       // they will be handled by their own FormLike.
-      elements: [for (el of doc.documentElement.querySelectorAll("input")) if (!el.form) el],
+      elements: [],
       ownerDocument: doc,
       rootElement: doc.documentElement,
     };
@@ -1351,7 +1351,7 @@ var FormLikeFactory = {
   _addToJSONProperty(aFormLike) {
     function prettyElementOutput(aElement) {
       let idText = aElement.id ? "#" + aElement.id : "";
-      let classText = [for (className of aElement.classList) "." + className].join("");
+      let classText = [].join("");
       return `<${aElement.nodeName + idText + classText}>`;
     }
 
@@ -1364,7 +1364,7 @@ var FormLikeFactory = {
 
           switch (key) {
             case "elements": {
-              cleansedValue = [for (element of value) prettyElementOutput(element)];
+              cleansedValue = [];
               break;
             }
 

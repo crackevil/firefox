@@ -187,16 +187,16 @@ CommonNativeApp.prototype = {
       }
 
 
-      let [ mimeType, icon ] = yield downloadIcon(this.iconURI);
-      yield this._processIcon(mimeType, icon, aTmpDir);
+      let [ mimeType, icon ] =  downloadIcon(this.iconURI);
+       this._processIcon(mimeType, icon, aTmpDir);
     }
     catch(e) {
       Cu.reportError("Failure retrieving icon: " + e);
 
       let iconURI = Services.io.newURI(DEFAULT_ICON_URL, null, null);
 
-      let [ mimeType, icon ] = yield downloadIcon(iconURI);
-      yield this._processIcon(mimeType, icon, aTmpDir);
+      let [ mimeType, icon ] =  downloadIcon(iconURI);
+       this._processIcon(mimeType, icon, aTmpDir);
 
       // Set the iconURI property so that the user notification will have the
       // correct icon.
@@ -219,7 +219,7 @@ CommonNativeApp.prototype = {
       let appProfile = profSvc.createDefaultProfileForApp(this.uniqueName,
                                                           null, null);
       return appProfile.localDir;
-    } catch (ex if ex.result == Cr.NS_ERROR_ALREADY_INITIALIZED) {
+    } catch (ex ) {
       return null;
     }
   },
@@ -309,7 +309,7 @@ NativeApp.prototype = {
 
     // If the application is already installed, this is a reinstallation.
     if (WebappOSUtils.getInstallPath(aApp)) {
-      return yield this.prepareUpdate(aApp, aManifest, aZipPath);
+      return  this.prepareUpdate(aApp, aManifest, aZipPath);
     }
 
     this._setData(aApp, aManifest);
@@ -323,19 +323,19 @@ NativeApp.prototype = {
 
     // Perform the installation in the temp directory.
     try {
-      yield this._createDirectoryStructure(tmpDir);
-      yield this._getShortcutName(installDir);
-      yield this._copyWebapprt(tmpDir);
-      yield this._copyUninstaller(tmpDir);
-      yield this._createConfigFiles(tmpDir);
+       this._createDirectoryStructure(tmpDir);
+       this._getShortcutName(installDir);
+       this._copyWebapprt(tmpDir);
+       this._copyUninstaller(tmpDir);
+       this._createConfigFiles(tmpDir);
 
       if (aZipPath) {
-        yield OS.File.move(aZipPath, OS.Path.join(tmpDir, this.zipFile));
+         OS.File.move(aZipPath, OS.Path.join(tmpDir, this.zipFile));
       }
 
-      yield this._getIcon(tmpDir);
+       this._getIcon(tmpDir);
     } catch (ex) {
-      yield OS.File.removeDir(tmpDir, { ignoreAbsent: true });
+       OS.File.removeDir(tmpDir, { ignoreAbsent: true });
       throw ex;
     }
 
@@ -343,10 +343,10 @@ NativeApp.prototype = {
     this._removeInstallation(true, installDir);
 
     try {
-      yield this._applyTempInstallation(tmpDir, installDir);
+       this._applyTempInstallation(tmpDir, installDir);
     } catch (ex) {
       this._removeInstallation(false, installDir);
-      yield OS.File.removeDir(tmpDir, { ignoreAbsent: true });
+       OS.File.removeDir(tmpDir, { ignoreAbsent: true });
       throw ex;
     }
   }),
@@ -377,23 +377,23 @@ NativeApp.prototype = {
     }
 
     let updateDir = OS.Path.join(installDir, "update");
-    yield OS.File.removeDir(updateDir, { ignoreAbsent: true });
-    yield OS.File.makeDir(updateDir);
+     OS.File.removeDir(updateDir, { ignoreAbsent: true });
+     OS.File.makeDir(updateDir);
 
     // Perform the update in the "update" subdirectory.
     try {
-      yield this._createDirectoryStructure(updateDir);
-      yield this._getShortcutName(installDir);
-      yield this._copyUninstaller(updateDir);
-      yield this._createConfigFiles(updateDir);
+       this._createDirectoryStructure(updateDir);
+       this._getShortcutName(installDir);
+       this._copyUninstaller(updateDir);
+       this._createConfigFiles(updateDir);
 
       if (aZipPath) {
-        yield OS.File.move(aZipPath, OS.Path.join(updateDir, this.zipFile));
+         OS.File.move(aZipPath, OS.Path.join(updateDir, this.zipFile));
       }
 
-      yield this._getIcon(updateDir);
+       this._getIcon(updateDir);
     } catch (ex) {
-      yield OS.File.removeDir(updateDir, { ignoreAbsent: true });
+       OS.File.removeDir(updateDir, { ignoreAbsent: true });
       throw ex;
     }
   }),
@@ -409,23 +409,23 @@ NativeApp.prototype = {
     let installDir = WebappOSUtils.getInstallPath(aApp);
     let updateDir = OS.Path.join(installDir, "update");
 
-    yield this._getShortcutName(installDir);
+     this._getShortcutName(installDir);
 
-    let backupDir = yield this._backupInstallation(installDir);
+    let backupDir =  this._backupInstallation(installDir);
 
     try {
-      yield this._applyTempInstallation(updateDir, installDir);
+       this._applyTempInstallation(updateDir, installDir);
     } catch (ex) {
-      yield this._restoreInstallation(backupDir, installDir);
+       this._restoreInstallation(backupDir, installDir);
       throw ex;
     } finally {
-      yield OS.File.removeDir(backupDir, { ignoreAbsent: true });
-      yield OS.File.removeDir(updateDir, { ignoreAbsent: true });
+       OS.File.removeDir(backupDir, { ignoreAbsent: true });
+       OS.File.removeDir(updateDir, { ignoreAbsent: true });
     }
   }),
 
   _applyTempInstallation: Task.async(function*(aTmpDir, aInstallDir) {
-    yield moveDirectory(aTmpDir, aInstallDir);
+     moveDirectory(aTmpDir, aInstallDir);
 
     this._createShortcutFiles(aInstallDir);
     this._writeSystemKeys(aInstallDir);
@@ -444,7 +444,7 @@ NativeApp.prototype = {
     } else {
       // Check in both directories to see if a shortcut with the same name
       // already exists.
-      this.shortcutName = yield getAvailableFileName([ PROGS_DIR, DESKTOP_DIR ],
+      this.shortcutName =  getAvailableFileName([ PROGS_DIR, DESKTOP_DIR ],
                                                      this.appNameAsFilename,
                                                      ".lnk");
     }
@@ -490,11 +490,11 @@ NativeApp.prototype = {
 
   _backupInstallation: Task.async(function*(aInstallDir) {
     let backupDir = OS.Path.join(aInstallDir, "backup");
-    yield OS.File.removeDir(backupDir, { ignoreAbsent: true });
-    yield OS.File.makeDir(backupDir);
+     OS.File.removeDir(backupDir, { ignoreAbsent: true });
+     OS.File.makeDir(backupDir);
 
     for (let filePath of this.backupFiles) {
-      yield OS.File.move(OS.Path.join(aInstallDir, filePath),
+       OS.File.move(OS.Path.join(aInstallDir, filePath),
                          OS.Path.join(backupDir, filePath));
     }
 
@@ -509,9 +509,9 @@ NativeApp.prototype = {
    * Creates the main directory structure.
    */
   _createDirectoryStructure: Task.async(function*(aDir) {
-    yield OS.File.makeDir(OS.Path.join(aDir, this.uninstallDir));
+     OS.File.makeDir(OS.Path.join(aDir, this.uninstallDir));
 
-    yield OS.File.makeDir(OS.Path.join(aDir, OS.Path.dirname(this.iconPath)),
+     OS.File.makeDir(OS.Path.join(aDir, OS.Path.dirname(this.iconPath)),
                           { from: aDir });
   }),
 
@@ -536,7 +536,7 @@ NativeApp.prototype = {
    */
   _createConfigFiles: function(aDir) {
     // ${InstallDir}/webapp.json
-    yield writeToFile(OS.Path.join(aDir, this.configJson),
+     writeToFile(OS.Path.join(aDir, this.configJson),
                       JSON.stringify(this.webappJson));
 
     let factory = Cc["@mozilla.org/xpcom/ini-processor-factory;1"].
@@ -572,7 +572,7 @@ NativeApp.prototype = {
       uninstallContent += "\r\nFile: \\application.zip";
     }
 
-    yield writeToFile(OS.Path.join(aDir, this.uninstallDir, "uninstall.log"),
+     writeToFile(OS.Path.join(aDir, this.uninstallDir, "uninstall.log"),
                       uninstallContent);
   },
 
@@ -715,11 +715,11 @@ function writeToFile(aPath, aData) {
 
     let file;
     try {
-      file = yield OS.File.open(aPath, { truncate: true, write: true },
+      file =  OS.File.open(aPath, { truncate: true, write: true },
                                 { unixMode: PERMS_FILE });
-      yield file.write(data);
+       file.write(data);
     } finally {
-      yield file.close();
+       file.close();
     }
   });
 }
@@ -769,7 +769,7 @@ function getAvailableFileName(aPathSet, aName, aExtension) {
     function checkUnique(aName) {
       return Task.spawn(function*() {
         for (let path of aPathSet) {
-          if (yield OS.File.exists(OS.Path.join(path, aName))) {
+          if ( OS.File.exists(OS.Path.join(path, aName))) {
             return false;
           }
         }
@@ -778,7 +778,7 @@ function getAvailableFileName(aPathSet, aName, aExtension) {
       });
     }
 
-    if (yield checkUnique(name)) {
+    if ( checkUnique(name)) {
       return name;
     }
 
@@ -787,7 +787,7 @@ function getAvailableFileName(aPathSet, aName, aExtension) {
     for (let i = 2; i < 100; i++) {
       name = aName + " (" + i + ")" + aExtension;
 
-      if (yield checkUnique(name)) {
+      if ( checkUnique(name)) {
         return name;
       }
     }
@@ -829,14 +829,14 @@ function moveDirectory(srcPath, destPath) {
   while (entries.hasMoreElements()) {
     let entry = entries.getNext().QueryInterface(Ci.nsIFile);
     if (entry.isDirectory()) {
-      yield moveDirectory(entry.path, OS.Path.join(destPath, entry.leafName));
+       moveDirectory(entry.path, OS.Path.join(destPath, entry.leafName));
     } else {
       entry.moveTo(destDir, entry.leafName);
     }
   }
 
   // The source directory is now empty, remove it.
-  yield OS.File.removeEmptyDir(srcPath);
+   OS.File.removeEmptyDir(srcPath);
 }
 
 function escapeXML(aStr) {

@@ -162,7 +162,7 @@ LoginStore.prototype = {
   {
     return Task.spawn(function () {
       try {
-        let bytes = yield OS.File.read(this.path);
+        let bytes =  OS.File.read(this.path);
 
         // If synchronous loading happened in the meantime, exit now.
         if (this.dataReady) {
@@ -180,10 +180,10 @@ LoginStore.prototype = {
 
           // Move the original file to a backup location, ignoring errors.
           try {
-            let openInfo = yield OS.File.openUnique(this.path + ".corrupt",
+            let openInfo =  OS.File.openUnique(this.path + ".corrupt",
                                                     { humanReadable: true });
-            yield openInfo.file.close();
-            yield OS.File.move(this.path, openInfo.path);
+             openInfo.file.close();
+             OS.File.move(this.path, openInfo.path);
           } catch (e2) {
             Cu.reportError(e2);
           }
@@ -305,7 +305,7 @@ LoginStore.prototype = {
     return Task.spawn(function () {
       // Create or overwrite the file.
       let bytes = gTextEncoder.encode(JSON.stringify(this.data));
-      yield OS.File.writeAtomic(this.path, bytes,
+       OS.File.writeAtomic(this.path, bytes,
                                 { tmpPath: this.path + ".tmp" });
     }.bind(this));
   },

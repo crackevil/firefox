@@ -88,7 +88,7 @@ this.FxAccountsProfileClient.prototype = {
     }
     try {
       return (yield this._rawRequest(path, method, token));
-    } catch (ex if ex instanceof FxAccountsProfileClientError && ex.code == 401) {
+    } catch (ex) {
       // If this object was instantiated with a token then we don't refresh it.
       if (this.token) {
         throw ex;
@@ -101,7 +101,7 @@ this.FxAccountsProfileClient.prototype = {
       // revoking the token.
       try {
         return (yield this._rawRequest(path, method, token));
-      } catch (ex if ex instanceof FxAccountsProfileClientError && ex.code == 401) {
+      } catch (ex) {
         log.info("Retry fetching the profile still returned a 401 - revoking our token and failing");
         yield this.fxa.removeCachedOAuthToken({token});
         throw ex;

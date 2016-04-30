@@ -2701,7 +2701,7 @@ SearchService.prototype = {
       }
       try {
          checkForSyncCompletion(this._asyncLoadEngines(cache));
-      } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+      } catch (ex ) {
         this._initRV = Cr.NS_ERROR_FAILURE;
         LOG("_asyncInit: failure loading engines: " + ex);
       }
@@ -2933,7 +2933,7 @@ SearchService.prototype = {
           // Add dir to distDirs if it contains any files.
            checkForSyncCompletion(iterator.next());
           distDirs.push(dir);
-        } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+        } catch (ex) {
           // Catch for StopIteration exception.
         } finally {
           iterator.close();
@@ -2955,7 +2955,7 @@ SearchService.prototype = {
           // Add dir to otherDirs if it contains any files.
            checkForSyncCompletion(iterator.next());
           otherDirs.push(dir);
-        } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+        } catch (ex ) {
           // Catch for StopIteration exception.
         } finally {
           iterator.close();
@@ -3418,7 +3418,7 @@ SearchService.prototype = {
             addedEngine._dirLastModifiedTime =
               info.lastModificationDate.getTime();
           }
-        } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+        } catch (ex) {
           LOG("_asyncLoadEnginesFromDir: Failed to load " + osfile.path + "!\n" + ex);
           continue;
         }
@@ -3463,7 +3463,7 @@ SearchService.prototype = {
           let engine = new Engine(uri, true);
            checkForSyncCompletion(engine._asyncInitFromURI(uri));
           engines.push(engine);
-        } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+        } catch (ex ) {
           LOG("_asyncLoadFromChromeURLs: failed to load engine: " + ex);
         }
       }
@@ -3733,11 +3733,7 @@ SearchService.prototype = {
           // Complete initialization by calling asynchronous initializer.
            self._asyncInit();
           TelemetryStopwatch.finish("SEARCH_SERVICE_INIT_MS");
-        } catch (ex if ex.result == Cr.NS_ERROR_ALREADY_INITIALIZED) {
-          // No need to pursue asynchronous because synchronous fallback was
-          // called and has finished.
-          TelemetryStopwatch.finish("SEARCH_SERVICE_INIT_MS");
-        } catch (ex) {
+        }catch (ex) {
           self._initObservers.reject(ex);
           TelemetryStopwatch.cancel("SEARCH_SERVICE_INIT_MS");
         }

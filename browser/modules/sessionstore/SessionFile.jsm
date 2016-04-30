@@ -233,12 +233,12 @@ var SessionFileInternal = {
         break;
       } catch (ex1 ) {
         exists = false;
-      } catch (ex2) {
+
         // The file might be inaccessible due to wrong permissions
         // or similar failures. We'll just count it as "corrupted".
         console.error("Could not read session file ", ex, ex.stack);
         corrupted = true;
-      } catch (ex3) {
+
         console.error("Corrupt session file (invalid JSON found) ", ex, ex.stack);
         // File is corrupted, try next file
         corrupted = true;

@@ -299,7 +299,7 @@ this.XPCOMUtils = {
   IterSimpleEnumerator: function XPCU_IterSimpleEnumerator(e, i)
   {
     while (e.hasMoreElements())
-      yield e.getNext().QueryInterface(i);
+       e.getNext().QueryInterface(i);
   },
 
   /**
@@ -310,7 +310,7 @@ this.XPCOMUtils = {
   IterStringEnumerator: function XPCU_IterStringEnumerator(e)
   {
     while (e.hasMore())
-      yield e.getNext();
+      e.getNext();
   },
 
   /**

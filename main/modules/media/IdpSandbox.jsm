@@ -168,8 +168,7 @@ IdpSandbox.createIdpUri = function(domain, protocol) {
     }
 
     return uri;
-  } catch (e if (typeof e.result !== 'undefined' &&
-                 e.result === Cr.NS_ERROR_MALFORMED_URI)) {
+  } catch (e ) {
     throw new Error(message + 'must produce a valid URI');
   }
 };
