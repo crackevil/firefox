@@ -511,7 +511,7 @@ var ensureKnownCountryCode = Task.async(function* (ss) {
     // We don't have it cached, so fetch it. fetchCountryCode() will call
     // storeCountryCode if it gets a result (even if that happens after the
     // promise resolves) and fetchRegionDefault.
-    yield fetchCountryCode(ss);
+     fetchCountryCode(ss);
   } else {
     // if nothing to do, return early.
     if (!geoSpecificDefaultsEnabled())
@@ -532,7 +532,7 @@ var ensureKnownCountryCode = Task.async(function* (ss) {
       }
     }
 
-    yield new Promise(resolve => {
+    new Promise(resolve => {
       let timeoutMS = Services.prefs.getIntPref("browser.search.geoip.timeout");
       let timerId = setTimeout(() => {
         timerId = null;
@@ -1404,11 +1404,11 @@ Engine.prototype = {
    */
   _asyncInitFromFile: function SRCH_ENG__asyncInitFromFile(file) {
     return Task.spawn(function() {
-      if (!file || !(yield OS.File.exists(file.path)))
+      if (!file || !( OS.File.exists(file.path)))
         FAIL("File must exist before calling initFromFile!", Cr.NS_ERROR_UNEXPECTED);
 
       let fileURI = NetUtil.ioService.newFileURI(file);
-      yield this._retrieveSearchXMLData(fileURI.spec);
+       this._retrieveSearchXMLData(fileURI.spec);
 
       // Now that the data is loaded, initialize the engine object
       this._initFromData();
@@ -1455,7 +1455,7 @@ Engine.prototype = {
   _asyncInitFromURI: function SRCH_ENG__asyncInitFromURI(uri) {
     return Task.spawn(function() {
       LOG("_asyncInitFromURI: Loading engine from: \"" + uri.spec + "\".");
-      yield this._retrieveSearchXMLData(uri.spec);
+       this._retrieveSearchXMLData(uri.spec);
       // Now that the data is loaded, initialize the engine object
       this._initFromData();
     }.bind(this));
@@ -2689,18 +2689,18 @@ SearchService.prototype = {
       // Not using checkForSyncCompletion here because we want to ensure we
       // fetch the country code and geo specific defaults asynchronously even
       // if a sync init has been forced.
-      cache = yield this._asyncReadCacheFile();
+      cache =  this._asyncReadCacheFile();
 
       if (!gInitialized && cache.metaData)
         this._metaData = cache.metaData;
 
       try {
-        yield checkForSyncCompletion(ensureKnownCountryCode(this));
-      } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
+         checkForSyncCompletion(ensureKnownCountryCode(this));
+      } catch (ex) {
         LOG("_asyncInit: failure determining country code: " + ex);
       }
       try {
-        yield checkForSyncCompletion(this._asyncLoadEngines(cache));
+         checkForSyncCompletion(this._asyncLoadEngines(cache));
       } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
         this._initRV = Cr.NS_ERROR_FAILURE;
         LOG("_asyncInit: failure loading engines: " + ex);
@@ -2912,7 +2912,7 @@ SearchService.prototype = {
       LOG("_asyncLoadEngines: start");
       Services.obs.notifyObservers(null, SEARCH_SERVICE_TOPIC, "find-jar-engines");
       let chromeURIs =
-        yield checkForSyncCompletion(this._asyncFindJAREngines());
+         checkForSyncCompletion(this._asyncFindJAREngines());
 
       // Get the non-empty distribution directories into distDirs...
       let distDirs = [];
@@ -2931,7 +2931,7 @@ SearchService.prototype = {
                                                      { winPattern: "*.xml" });
         try {
           // Add dir to distDirs if it contains any files.
-          yield checkForSyncCompletion(iterator.next());
+           checkForSyncCompletion(iterator.next());
           distDirs.push(dir);
         } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
           // Catch for StopIteration exception.
@@ -2953,7 +2953,7 @@ SearchService.prototype = {
                                                      { winPattern: "*.xml" });
         try {
           // Add dir to otherDirs if it contains any files.
-          yield checkForSyncCompletion(iterator.next());
+           checkForSyncCompletion(iterator.next());
           otherDirs.push(dir);
         } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
           // Catch for StopIteration exception.
@@ -2972,7 +2972,7 @@ SearchService.prototype = {
               continue;
             }
 
-            let info = yield OS.File.stat(dir.path);
+            let info =  OS.File.stat(dir.path);
             if (lastModifiedTime != info.lastModificationDate.getTime()) {
               modifiedDir = true;
               break;
@@ -3004,17 +3004,17 @@ SearchService.prototype = {
                          otherDirs.some(d => !cacheOtherPaths.has(d.path)) ||
                          cache.visibleDefaultEngines.length != this._visibleDefaultEngines.length ||
                          this._visibleDefaultEngines.some(notInCacheVisibleEngines) ||
-                         (yield checkForSyncCompletion(hasModifiedDir(otherDirs)));
+                         ( checkForSyncCompletion(hasModifiedDir(otherDirs)));
 
       if (rebuildCache) {
         LOG("_asyncLoadEngines: Absent or outdated cache. Loading engines from disk.");
         for (let loadDir of distDirs) {
           let enginesFromDir =
-            yield checkForSyncCompletion(this._asyncLoadEnginesFromDir(loadDir));
+             checkForSyncCompletion(this._asyncLoadEnginesFromDir(loadDir));
           enginesFromDir.forEach(this._addEngineToStore, this);
         }
         let enginesFromURLs =
-          yield checkForSyncCompletion(this._asyncLoadFromChromeURLs(chromeURIs));
+           checkForSyncCompletion(this._asyncLoadFromChromeURLs(chromeURIs));
         enginesFromURLs.forEach(this._addEngineToStore, this);
 
         LOG("_asyncLoadEngines: loading user-installed engines from the obsolete cache");
@@ -3022,7 +3022,7 @@ SearchService.prototype = {
 
         for (let loadDir of otherDirs) {
           let enginesFromDir =
-            yield checkForSyncCompletion(this._asyncLoadEnginesFromDir(loadDir));
+             checkForSyncCompletion(this._asyncLoadEnginesFromDir(loadDir));
           enginesFromDir.forEach(this._addEngineToStore, this);
         }
 
@@ -3049,7 +3049,7 @@ SearchService.prototype = {
           LOG("finalizing batch task");
           let task = this._batchTask;
           this._batchTask = null;
-          yield task.finalize();
+           task.finalize();
         }
 
         // Clear the engines, too, so we don't stick with the stale ones.
@@ -3066,15 +3066,15 @@ SearchService.prototype = {
                                      "uninit-complete");
 
         let cache = {};
-        cache = yield this._asyncReadCacheFile();
+        cache =  this._asyncReadCacheFile();
         if (!gInitialized && cache.metaData)
           this._metaData = cache.metaData;
 
-        yield ensureKnownCountryCode(this);
+         ensureKnownCountryCode(this);
         // Due to the HTTP requests done by ensureKnownCountryCode, it's possible that
         // at this point a synchronous init has been forced by other code.
         if (!gInitialized)
-          yield this._asyncLoadEngines(cache);
+           this._asyncLoadEngines(cache);
 
         // Typically we'll re-init as a result of a pref observer,
         // so signal to 'callers' that we're done.
@@ -3172,7 +3172,7 @@ SearchService.prototype = {
       let json;
       try {
         let cacheFilePath = OS.Path.join(OS.Constants.Path.profileDir, CACHE_FILENAME);
-        let bytes = yield OS.File.read(cacheFilePath, {compression: "lz4"});
+        let bytes =  OS.File.read(cacheFilePath, {compression: "lz4"});
         json = JSON.parse(new TextDecoder().decode(bytes));
         if (!json.engines || !json.engines.length)
           throw "no engine in the file";
@@ -3184,7 +3184,7 @@ SearchService.prototype = {
         let oldMetadata =
           OS.Path.join(OS.Constants.Path.profileDir, "search-metadata.json");
         try {
-          let bytes = yield OS.File.read(oldMetadata);
+          let bytes =  OS.File.read(oldMetadata);
           let metadata = JSON.parse(new TextDecoder().decode(bytes));
           if ("[global]" in metadata) {
             LOG("_asyncReadCacheFile: migrating metadata from search-metadata.json");
@@ -3389,7 +3389,7 @@ SearchService.prototype = {
     let dirPath = aDir.path;
     let iterator = new OS.File.DirectoryIterator(dirPath);
     return Task.spawn(function() {
-      let osfiles = yield iterator.nextBatch();
+      let osfiles =  iterator.nextBatch();
       iterator.close();
 
       let engines = [];
@@ -3397,7 +3397,7 @@ SearchService.prototype = {
         if (osfile.isDir || osfile.isSymLink)
           continue;
 
-        let fileInfo = yield OS.File.stat(osfile.path);
+        let fileInfo =  OS.File.stat(osfile.path);
         if (fileInfo.size == 0)
           continue;
 
@@ -3411,10 +3411,10 @@ SearchService.prototype = {
         try {
           let file = new FileUtils.File(osfile.path);
           addedEngine = new Engine(file, !isInProfile);
-          yield checkForSyncCompletion(addedEngine._asyncInitFromFile(file));
+           checkForSyncCompletion(addedEngine._asyncInitFromFile(file));
           if (!isInProfile && !addedEngine._isDefault) {
             addedEngine._dirPath = dirPath;
-            let info = yield OS.File.stat(dirPath);
+            let info =  OS.File.stat(dirPath);
             addedEngine._dirLastModifiedTime =
               info.lastModificationDate.getTime();
           }
@@ -3461,7 +3461,7 @@ SearchService.prototype = {
           LOG("_asyncLoadFromChromeURLs: loading engine from chrome url: " + url);
           let uri = NetUtil.newURI(url);
           let engine = new Engine(uri, true);
-          yield checkForSyncCompletion(engine._asyncInitFromURI(uri));
+           checkForSyncCompletion(engine._asyncInitFromURI(uri));
           engines.push(engine);
         } catch (ex if ex.result != Cr.NS_ERROR_ALREADY_INITIALIZED) {
           LOG("_asyncLoadFromChromeURLs: failed to load engine: " + ex);
@@ -3531,7 +3531,7 @@ SearchService.prototype = {
       };
       request.open("GET", NetUtil.newURI(listURL).spec, true);
       request.send();
-      let list = yield deferred.promise;
+      let list =  deferred.promise;
 
       this._parseListTxt(list, uris);
       throw new Task.Result(uris);
@@ -3731,7 +3731,7 @@ SearchService.prototype = {
       Task.spawn(function task() {
         try {
           // Complete initialization by calling asynchronous initializer.
-          yield self._asyncInit();
+           self._asyncInit();
           TelemetryStopwatch.finish("SEARCH_SERVICE_INIT_MS");
         } catch (ex if ex.result == Cr.NS_ERROR_ALREADY_INITIALIZED) {
           // No need to pursue asynchronous because synchronous fallback was
@@ -4427,7 +4427,7 @@ SearchService.prototype = {
         if (this._batchTask) {
           shutdownState.step = "Finalizing batched task";
           try {
-            yield this._batchTask.finalize();
+             this._batchTask.finalize();
             shutdownState.step = "Batched task finalized";
           } catch (ex) {
             shutdownState.step = "Batched task failed to finalize";

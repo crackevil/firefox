@@ -111,14 +111,14 @@ function* forOfIterator() {
     let sel = Selection(i);
 
     if (sel.text)
-      yield Selection(i);
+       Selection(i);
   }
 }
 
 const selectionIteratorOptions = {
   __iterator__: function() {
       for (let item of this)
-          yield item;
+           item;
   }
 }
 selectionIteratorOptions[Symbol.iterator] = forOfIterator;

@@ -650,8 +650,8 @@ function promiseTargetFile(aFpP, /* optional */ aSkipPrompt, /* optional */ aRel
         deferred.resolve(aFile);
       });
     }
-    let file = yield deferred.promise;
-    if (file && (yield OS.File.exists(file.path))) {
+    let file =  deferred.promise;
+    if (file && ( OS.File.exists(file.path))) {
       dir = file;
       dirExists = true;
     }
@@ -687,7 +687,7 @@ function promiseTargetFile(aFpP, /* optional */ aSkipPrompt, /* optional */ aRel
     fp.open(function(aResult) {
       deferComplete.resolve(aResult);
     });
-    let result = yield deferComplete.promise;
+    let result =  deferComplete.promise;
     if (result == Components.interfaces.nsIFilePicker.returnCancel || !fp.file) {
       throw new Task.Result(false);
     }
@@ -765,12 +765,12 @@ function DownloadURL(aURL, aFileName, aInitiatingDocument) {
   };
 
   Task.spawn(function* () {
-    let accepted = yield promiseTargetFile(filepickerParams, true, fileInfo.uri);
+    let accepted =  promiseTargetFile(filepickerParams, true, fileInfo.uri);
     if (!accepted)
       return;
 
     let file = filepickerParams.file;
-    let download = yield Downloads.createDownload({
+    let download =  Downloads.createDownload({
       source: { url: aURL, isPrivate: isPrivate },
       target: { path: file.path, partFilePath: file.path + ".part" }
     });
@@ -778,7 +778,7 @@ function DownloadURL(aURL, aFileName, aInitiatingDocument) {
     download.start();
 
     // Add the download to the list, allowing it to be managed.
-    let list = yield Downloads.getList(Downloads.ALL);
+    let list =  Downloads.getList(Downloads.ALL);
     list.add(download);
   }).then(null, Components.utils.reportError);
 }

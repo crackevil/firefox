@@ -37,7 +37,7 @@ function windowIterator() {
   // to access DOM during "uninitialized" state of the related document.
   let list = getWindows().filter(isDocumentLoaded);
   for (let i = 0, l = list.length; i < l; i++) {
-    yield list[i];
+     list[i];
   }
 };
 exports.windowIterator = windowIterator;
@@ -51,7 +51,7 @@ exports.windowIterator = windowIterator;
 function browserWindowIterator() {
   for (let window of windowIterator()) {
     if (isBrowser(window))
-      yield window;
+       window;
   }
 }
 exports.browserWindowIterator = browserWindowIterator;

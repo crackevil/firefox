@@ -67,7 +67,7 @@ function iterator(target) {
     // Plus, if `value` is already gc'ed, we do not have to take it in account
     // during the iteration, and remove it from the references.
     if (value !== null && has(target, value))
-      yield value;
+       value;
     else
       refs.delete(ref);
   }

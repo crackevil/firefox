@@ -396,7 +396,7 @@ Resource.prototype = {
     try {
       this._doRequest(action, data, callback);
       return Async.waitForSyncCallback(cb);
-    } catch (ex if !Async.isShutdownException(ex)) {
+    } catch (ex ) {
       // Combine the channel stack with this request stack.  Need to create
       // a new error object for that.
       let error = Error(ex.message);
@@ -549,7 +549,7 @@ ChannelListener.prototype = {
 
     try {
       this._onProgress();
-    } catch (ex if !Async.isShutdownException(ex)) {
+    } catch (ex ) {
       this._log.warn("Got exception calling onProgress handler during fetch of "
                      + req.URI.spec, ex);
       this._log.trace("Rethrowing; expect a failure code from the HTTP channel.");

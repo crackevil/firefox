@@ -54,7 +54,7 @@ const ChildPageMod = Class({
 
     function deserializeRules(rules) {
       for (let rule of rules) {
-        yield rule.type == "string" ? rule.value
+         rule.type == "string" ? rule.value
                                     : new RegExp(rule.pattern, rule.flags);
       }
     }

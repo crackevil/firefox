@@ -120,7 +120,7 @@ const PageMod = Class({
 
     function serializeRules(rules) {
       for (let rule of rules) {
-        yield isRegExp(rule) ? { type: "regexp", pattern: rule.source, flags: rule.flags }
+         isRegExp(rule) ? { type: "regexp", pattern: rule.source, flags: rule.flags }
                              : { type: "string", value: rule };
       }
     }

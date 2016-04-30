@@ -122,7 +122,7 @@ exports.addIterator = function addIterator(obj, keysValsGenerator) {
     // and "for (.. in Iterator(..))" gets [key, value] pairs.
     let index = keysOnly ? 0 : 1;
     while (true)
-      yield keysVals ? keysValsIterator.next() : keysValsIterator.next()[index];
+       keysVals ? keysValsIterator.next() : keysValsIterator.next()[index];
   };
 };
 

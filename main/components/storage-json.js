@@ -55,7 +55,7 @@ this.LoginManagerStorage_json.prototype = {
       return Task.spawn(function () {
         // Load the data asynchronously.
         this.log("Opening database at", this._store.path);
-        yield this._store.load();
+         this._store.load();
 
         // The import from previous versions operates the first time
         // that this built-in storage back-end is used.  This may be
@@ -72,13 +72,13 @@ this.LoginManagerStorage_json.prototype = {
         // Import only happens asynchronously.
         let sqlitePath = OS.Path.join(OS.Constants.Path.profileDir,
                                       "signons.sqlite");
-        if (yield OS.File.exists(sqlitePath)) {
+        if ( OS.File.exists(sqlitePath)) {
           let loginImport = new LoginImport(this._store, sqlitePath);
           // Failures during import, for example due to a corrupt
           // file or a schema version that is too old, will not
           // prevent us from marking the operation as completed.
           // At the next startup, we will not try the import again.
-          yield loginImport.import().catch(Cu.reportError);
+           loginImport.import().catch(Cu.reportError);
           this._store.saveSoon();
         }
 

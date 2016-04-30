@@ -301,12 +301,7 @@ Store.prototype = {
     for (let record of records) {
       try {
         this.applyIncoming(record);
-      } catch (ex if (ex.code == Engine.prototype.eEngineAbortApplyIncoming)) {
-        // This kind of exception should have a 'cause' attribute, which is an
-        // originating exception.
-        // ex.cause will carry its stack with it when rethrown.
-        throw ex.cause;
-      } catch (ex if !Async.isShutdownException(ex)) {
+      }catch (ex) {
         this._log.warn("Failed to apply incoming record " + record.id, ex);
         this.engine._noteApplyFailure();
         failed.push(record.id);
@@ -990,7 +985,7 @@ SyncEngine.prototype = {
       this._tracker.ignoreAll = true;
       try {
         failed = failed.concat(this._store.applyIncomingBatch(applyBatch));
-      } catch (ex if !Async.isShutdownException(ex)) {
+      } catch (ex) {
         // Catch any error that escapes from applyIncomingBatch. At present
         // those will all be abort events.
         this._log.warn("Got exception, aborting processIncoming", ex);

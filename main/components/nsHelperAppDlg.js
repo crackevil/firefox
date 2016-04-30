@@ -305,7 +305,7 @@ nsUnknownContentTypeDialog.prototype = {
       // Default to lastDir if it is valid, otherwise use the user's default
       // downloads directory.  getPreferredDownloadsDirectory should always
       // return a valid directory path, so we can safely default to it.
-      let preferredDir = yield Downloads.getPreferredDownloadsDirectory();
+      let preferredDir =  Downloads.getPreferredDownloadsDirectory();
       picker.displayDirectory = new FileUtils.File(preferredDir);
 
       gDownloadLastDir.getFileAsync(aLauncher.source, function LastDirCallback(lastDir) {

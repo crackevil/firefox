@@ -256,7 +256,7 @@ BookmarksEngine.prototype = {
       stmt.params.id = id;
       let rows = Async.querySpinningly(stmt, ["url"]);
       url = rows.length == 0 ? "<not found>" : rows[0].url;
-    } catch (ex if !Async.isShutdownException(ex)) {
+    } catch (ex ) {
       if (ex instanceof Ci.mozIStorageError) {
         url = `<failed: Storage error: ${ex.message} (${ex.result})>`;
       } else {
@@ -418,7 +418,7 @@ BookmarksEngine.prototype = {
       // For first-syncs, make a backup for the user to restore
       if (this.lastSync == 0) {
         this._log.debug("Bookmarks backup starting.");
-        yield PlacesBackups.create(null, true);
+         PlacesBackups.create(null, true);
         this._log.debug("Bookmarks backup done.");
       }
     }.bind(this)).then(
@@ -1369,7 +1369,7 @@ BookmarksStore.prototype = {
     let cb = Async.makeSpinningCallback();
     Task.spawn(function() {
       // Save a backup before clearing out all bookmarks.
-      yield PlacesBackups.create(null, true);
+       PlacesBackups.create(null, true);
       for (let guid of kSpecialIds.guids)
         if (guid != "places") {
           let id = kSpecialIds.specialIdForGUID(guid);
