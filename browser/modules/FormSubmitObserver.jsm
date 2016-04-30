@@ -53,8 +53,8 @@ FormSubmitObserver.prototype =
     // nsIFormSubmitObserver callback about invalid forms. See HTMLFormElement
     // for details.
     Services.obs.addObserver(this, "invalidformsubmit", false);
-    this._tab.addEventListener("pageshow", this, false);
-    this._tab.addEventListener("unload", this, false);
+    this._content.addEventListener("pageshow", this, false);
+    this._content.addEventListener("unload", this, false);
   },
 
   uninit: function()
