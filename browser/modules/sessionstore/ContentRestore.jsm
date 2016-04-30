@@ -235,7 +235,7 @@ ContentRestoreInternal.prototype = {
       }
 
       return true;
-    } catch (ex if ex instanceof Ci.nsIException) {
+    } catch (ex) {
       // Ignore page load errors, but return false to signal that the load never
       // happened.
       return false;

@@ -161,9 +161,9 @@ LoginManager.prototype = {
         this._pwmgr = null;
       } else if (topic == "passwordmgr-storage-replace") {
         Task.spawn(function () {
-          yield this._pwmgr._storage.terminate();
+           this._pwmgr._storage.terminate();
           this._pwmgr._initStorage();
-          yield this._pwmgr.initializationPromise;
+           this._pwmgr.initializationPromise;
           Services.obs.notifyObservers(null,
                        "passwordmgr-storage-replace-complete", null);
         }.bind(this));

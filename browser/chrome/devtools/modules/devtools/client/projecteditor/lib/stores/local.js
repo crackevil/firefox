@@ -114,7 +114,7 @@ var LocalStore = Class({
       let info;
       try {
         info = yield OS.File.stat(path);
-      } catch (ex if ex instanceof OS.File.Error && ex.becauseNoSuchFile) {
+      } catch (ex) {
         if (!options.create) {
           throw ex;
         }

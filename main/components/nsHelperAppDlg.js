@@ -256,7 +256,7 @@ nsUnknownContentTypeDialog.prototype = {
 
         if (autodownload) {
           // Retrieve the user's default download directory
-          let preferredDir = yield Downloads.getPreferredDownloadsDirectory();
+          let preferredDir =  Downloads.getPreferredDownloadsDirectory();
           let defaultFolder = new FileUtils.File(preferredDir);
 
           try {

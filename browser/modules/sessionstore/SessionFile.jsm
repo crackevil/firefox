@@ -231,14 +231,14 @@ var SessionFileInternal = {
         Telemetry.getHistogramById("FX_SESSION_RESTORE_READ_FILE_MS").
           add(Date.now() - startMs);
         break;
-      } catch (ex if ex instanceof OS.File.Error && ex.becauseNoSuchFile) {
+      } catch (ex1 ) {
         exists = false;
-      } catch (ex if ex instanceof OS.File.Error) {
+      } catch (ex2) {
         // The file might be inaccessible due to wrong permissions
         // or similar failures. We'll just count it as "corrupted".
         console.error("Could not read session file ", ex, ex.stack);
         corrupted = true;
-      } catch (ex if ex instanceof SyntaxError) {
+      } catch (ex3) {
         console.error("Corrupt session file (invalid JSON found) ", ex, ex.stack);
         // File is corrupted, try next file
         corrupted = true;

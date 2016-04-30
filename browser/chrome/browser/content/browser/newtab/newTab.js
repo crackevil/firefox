@@ -625,7 +625,7 @@ var gGrid = {
   /**
    * All sites contained in the grid's cells. Sites may be empty.
    */
-  get sites() { return [for (cell of this.cells) cell.site]; },
+  get sites() {  },
 
   // Tells whether the grid has already been initialized.
   get ready() { return !!this._ready; },

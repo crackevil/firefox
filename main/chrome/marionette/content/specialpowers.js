@@ -58,7 +58,7 @@ function SpecialPowers(window) {
         removeMessageListener("SPPingService", self._messageListener);
         removeMessageListener("SpecialPowers.FilesCreated", self._messageListener);
         removeMessageListener("SpecialPowers.FilesError", self._messageListener);
-      } catch (e if e.result == Components.results.NS_ERROR_ILLEGAL_VALUE) {
+      } catch (e ) {
         // Ignore the exception which the message manager has been destroyed.
         ;
       }

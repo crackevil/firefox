@@ -626,8 +626,8 @@ function promiseTargetFile(aFpP, /* optional */ aSkipPrompt, /* optional */ aRel
 
     // Default to the user's default downloads directory configured
     // through download prefs.
-    let dirPath = yield Downloads.getPreferredDownloadsDirectory();
-    let dirExists = yield OS.File.exists(dirPath);
+    let dirPath =  Downloads.getPreferredDownloadsDirectory();
+    let dirExists =  OS.File.exists(dirPath);
     let dir = new FileUtils.File(dirPath);
 
     if (useDownloadDir && dirExists) {

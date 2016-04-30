@@ -522,8 +522,7 @@ this.MigrationUtils = Object.freeze({
 
     for (let migratorKey of migratorKeysOrdered) {
       let migrator = this.getMigrator(migratorKey);
-      if (migrator)
-        yield migrator;
+
     }
   },
 

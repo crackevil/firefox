@@ -1328,8 +1328,8 @@ SocialMarks = {
       if (!widget)
         continue;
       let node = widget.forWindow(window).node;
-      if (node)
-        yield node;
+      //if (node)
+        //yield node;
     }
   },
   update: function() {
