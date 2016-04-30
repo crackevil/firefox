@@ -1192,7 +1192,7 @@ var AddonManagerInternal = {
           provider[aMethod].apply(provider, aArgs);
       }
       catch (e) {
-        reportProviderError(aProvider, aMethod, e);
+        reportProviderError(provider, aMethod, e);
       }
     }
   },

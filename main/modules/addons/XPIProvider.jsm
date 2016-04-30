@@ -2751,7 +2751,7 @@ this.XPIProvider = {
             XPIProvider.callBootstrapMethod(addon, file, "shutdown",
                                             BOOTSTRAP_REASONS.APP_SHUTDOWN);
             if (XPIProvider.bootstrappedAddons[id].disable)
-              delete XPIProvider.bootstrappedAddons[aId];
+              delete XPIProvider.bootstrappedAddons[id];
           }
           Services.obs.removeObserver(this, "quit-application-granted");
         }
