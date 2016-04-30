@@ -403,7 +403,7 @@ const breakdownEquals = exports.breakdownEquals = function (obj1, obj2) {
 
   if (Array.isArray(obj1)) {
     if (obj1.length !== obj2.length) { return false; }
-    return obj1.every((_, i) => exports.breakdownEquals(obj[1], obj2[i]));
+    return obj1.every((_, i) => exports.breakdownEquals(obj1[i], obj2[i]));
   }
   else if (type1 === "object") {
     let k1 = Object.keys(obj1);

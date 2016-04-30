@@ -74,7 +74,7 @@ function analyzeRawProfilingData(data) {
   // Convert keys in the graph from strings to ints.
   // TODO: Can we get rid of this ridiculousness?
   var newGraph = {};
-  for (id in graph) {
+  for (var id in graph) {
     newGraph[parseInt(id)] = graph[id];
   }
   graph = newGraph;
@@ -89,7 +89,7 @@ function analyzeRawProfilingData(data) {
   }
 
   var count = 0;
-  for (id in graph) {
+  for (var id in graph) {
     var parent = graph[id].parent;
     while (parent) {
       if (parent in moduleIds) {
