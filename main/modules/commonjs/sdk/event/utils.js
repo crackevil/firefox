@@ -92,7 +92,7 @@ function merge(inputs) {
   else {
     on(inputs, "end", () => end(inputs));
     on(inputs, "error", error);
-    on(inputs, "data", forward);
+    on(inputs, "data", data => emit(output, "data", data));    //forward is incorrect, refcount wrong
   }
 
   return output;
