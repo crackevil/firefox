@@ -1302,14 +1302,14 @@ function sweep(g, layerGraphs, iter) {
 
 function sweepDown(g, layerGraphs) {
   var cg;
-  for (i = 1; i < layerGraphs.length; ++i) {
+  for (var i = 1; i < layerGraphs.length; ++i) {
     cg = sortLayer(layerGraphs[i], cg, predecessorWeights(g, layerGraphs[i].nodes()));
   }
 }
 
 function sweepUp(g, layerGraphs) {
   var cg;
-  for (i = layerGraphs.length - 2; i >= 0; --i) {
+  for (var i = layerGraphs.length - 2; i >= 0; --i) {
     sortLayer(layerGraphs[i], cg, successorWeights(g, layerGraphs[i].nodes()));
   }
 }
@@ -2964,7 +2964,7 @@ exports.values = function(obj) {
 };
 
 exports.shuffle = function(array) {
-  for (i = array.length - 1; i > 0; --i) {
+  for (var i = array.length - 1; i > 0; --i) {
     var j = Math.floor(Math.random() * (i + 1));
     var aj = array[j];
     array[j] = array[i];

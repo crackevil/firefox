@@ -869,7 +869,7 @@ var gEditItemOverlay = {
 
     let tagsInField = this._getTagsArrayFromTagsInputField();
     let allTags = PlacesUtils.tagging.allTags;
-    for (tag of allTags) {
+    for (let tag of allTags) {
       let elt = document.createElement("listitem");
       elt.setAttribute("type", "checkbox");
       elt.setAttribute("label", tag);
