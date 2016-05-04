@@ -200,8 +200,8 @@ this.AppConstants = Object.freeze({
   DLL_SUFFIX: ".dll",
 
   MOZ_APP_NAME: "firefox",
-  MOZ_APP_VERSION: "46.0",
-  MOZ_APP_VERSION_DISPLAY: "46.0",
+  MOZ_APP_VERSION: "46.0.1",
+  MOZ_APP_VERSION_DISPLAY: "46.0.1",
   MOZ_BUILD_APP: "browser",
   MOZ_MACBUNDLE_NAME: "Firefox.app",
   MOZ_UPDATE_CHANNEL: "release",
@@ -220,7 +220,7 @@ this.AppConstants = Object.freeze({
   // URL to the hg revision this was built from (e.g.
   // "https://hg.mozilla.org/mozilla-central/rev/6256ec9113c1")
   // On unofficial builds, this is an empty string.
-  SOURCE_REVISION_URL: "https://hg.mozilla.org/releases/mozilla-release/rev/078baf501b55eaa47f3b189fda4dd28dae1fa257",
+  SOURCE_REVISION_URL: "https://hg.mozilla.org/releases/mozilla-release/rev/0b8492c110bec959b94e3d54d5bd5ca7f7f97f6c",
 
   MOZ_NUWA_PROCESS:
 //@line 310 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\modules\AppConstants.jsm"
