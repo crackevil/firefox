@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; user-scalable=false;">
+  <title>about:buildconfig</title>
+  <link rel="stylesheet" href="chrome://global/skin/about.css" type="text/css">
+  <style type="text/css">
+    th { text-align: start; }
+    h2 { margin-top: 1.5em; }
+    th, td { vertical-align: top; }
+  </style>
+</head>
+<body class="aboutPageWideContainer">
+<h1>about:buildconfig</h1>
+<h2>Source</h2>
+<p>Built from <a href="https://hg.mozilla.org/releases/mozilla-release/rev/b0310cb90fd0158abd0e92850a47768649ba3d77">https://hg.mozilla.org/releases/mozilla-release/rev/b0310cb90fd0158abd0e92850a47768649ba3d77</a></p>
+<h2>Build platform</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>target</th>
+    </tr>
+    <tr>
+      <td>x86_64-pc-mingw32</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Build tools</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Compiler</th>
+      <th>Version</th>
+      <th>Compiler flags</th>
+    </tr>
+    <tr>
+      <td>cl</td>
+      <td>1800</td>
+      <td>-TC -nologo -D_HAS_EXCEPTIONS=0 -W3 -Gy -FS -wd4244 -wd4267 -wd4819 -we4553</td>
+    </tr>
+    <tr>
+      <td>cl</td>
+      <td>1800</td>
+      <td> -TP -nologo -D_HAS_EXCEPTIONS=0 -W3 -Gy -FS -wd4251 -wd4244 -wd4267 -wd4345 -wd4351 -wd4800 -wd4819 -we4553 -GR-  -Zi -GL -wd4624 -wd4952 -O1 -Oi -Oy </td>
+    </tr>
+  </tbody>
+</table>
+<h2>Configure arguments</h2>
+<p> --target=x86_64-pc-mingw32 --host=x86_64-pc-mingw32 --enable-crashreporter --enable-release --enable-update-channel=release --enable-update-packaging --enable-jemalloc --with-google-api-keyfile=/c/builds/gapi.data --with-google-oauth-api-keyfile=/c/builds/google-oauth-api.key --with-mozilla-api-keyfile=/c/builds/mozilla-desktop-geoloc-api.key --enable-warnings-as-errors --enable-eme=adobe,widevine --enable-official-branding --enable-verify-mar</p>
+</body>
+</html>
