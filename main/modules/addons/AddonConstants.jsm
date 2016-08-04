@@ -22,6 +22,6 @@ Object.defineProperty(this, "REQUIRE_SIGNING", {
   enumerable: false,
   writable: false,
 //@line 27 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\mozapps\extensions\internal\AddonConstants.jsm"
-  value: true,
+  value: false,
 //@line 31 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\mozapps\extensions\internal\AddonConstants.jsm"
 });

@@ -172,7 +172,7 @@ this.AppConstants = Object.freeze({
 
   MOZ_REQUIRE_SIGNING:
 //@line 246 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\modules\AppConstants.jsm"
-  true,
+  false,
 //@line 250 "c:\builds\moz2_slave\m-rel-w64-00000000000000000000\build\src\toolkit\modules\AppConstants.jsm"
 
   MENUBAR_CAN_AUTOHIDE:
