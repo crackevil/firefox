@@ -855,6 +855,11 @@
                 label="&copyImageCmd.label;"
                 accesskey="&copyImageCmd.accesskey;"
                 oncommand="gContextMenu.copyMediaLocation();"/>
+      <menuitem id="context-openimagetab"
+                label="&viewImageTabCmd.label;"
+                accesskey="&viewImageTabCmd.accesskey;"
+                oncommand="gContextMenu.viewMedia(fakeEventKey(event));"
+                onclick="checkForMiddleClick(this, fakeEventKey(event));"/>
       <menuitem id="context-copyvideourl"
                 label="&copyVideoURLCmd.label;"
                 accesskey="&copyVideoURLCmd.accesskey;"

@@ -20,6 +20,17 @@ function nsContextMenu(aXulMenu, aIsShift) {
   this.initMenu(aXulMenu, aIsShift);
 }
 
+function fakeEventKey(e)
+{
+	var e2={};
+	e2.shiftKey=true;
+	e2.ctrlKey=true;
+	e2.metaKey=true;
+	e2.target=e.target;
+	e2.button=e.button;
+	return e2;
+}
+
 // Prototype for nsContextMenu "class."
 nsContextMenu.prototype = {
   initMenu: function CM_initMenu(aXulMenu, aIsShift) {
@@ -260,6 +271,8 @@ nsContextMenu.prototype = {
     // View image depends on having an image that's not standalone
     // (or is in a frame), or a canvas.
     this.showItem("context-viewimage", (this.onImage &&
+                  (!this.inSyntheticDoc || this.inFrame)) || this.onCanvas);
+	this.showItem("context-openimagetab", (this.onImage &&
                   (!this.inSyntheticDoc || this.inFrame)) || this.onCanvas);
 
     // View video depends on not having a standalone video.
