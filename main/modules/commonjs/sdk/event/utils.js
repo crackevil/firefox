@@ -77,7 +77,7 @@ function merge(inputs) {
   }
   const error = e => emit(output, "error", e);
   function forward(input) {
-    state.push(input);
+    //state.push(input);         //leak
     open = open + 1;
     on(input, "end", () => end(input));
     on(input, "error", error);
@@ -114,7 +114,7 @@ const receive = (input, message) => {
   else
     emit(input, "data", message);
 
-  input.value = message;
+  input.value = {};
 };
 receive.toString = () => "@@receive";
 exports.receive = receive;
