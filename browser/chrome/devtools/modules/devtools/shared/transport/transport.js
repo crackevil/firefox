@@ -556,7 +556,7 @@ LocalDebuggerTransport.prototype = {
         dumpn("Packet " + serial + " sent to " + uneval(packet.to));
       }
     }
-    this._deepFreeze(packet);
+    //this._deepFreeze(packet);
     let other = this.other;
     if (other) {
       DevToolsUtils.executeSoon(DevToolsUtils.makeInfallible(() => {
@@ -687,8 +687,8 @@ LocalDebuggerTransport.prototype = {
       // somewhere in the object if there is an already frozen object containing
       // an unfrozen object.
       if (object.hasOwnProperty(prop) && typeof object === "object" &&
-          !Object.isFrozen(object)) {
-        this._deepFreeze(o[prop]);
+          !Object.isFrozen(object[prop])) {
+        this._deepFreeze(object[prop]);
       }
     }
   }
