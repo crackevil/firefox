@@ -1072,7 +1072,7 @@ FeedWriter.prototype = {
           this._window.location.href = handler.getHandlerURI(this._window.location.href);
         }
       } else {
-        let prefReader = null;
+        let feedReader = null;
         switch (selectedItem.id) {
           case "selectedAppMenuItem":
             feedReader = "client";

@@ -145,7 +145,7 @@ TabStore.prototype = {
       }
 
       for (let tab of win.gBrowser.tabs) {
-        tabState = this.getTabState(tab);
+        let tabState = this.getTabState(tab);
 
         // Make sure there are history entries to look at.
         if (!tabState || !tabState.entries.length) {

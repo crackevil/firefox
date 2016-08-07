@@ -1112,7 +1112,7 @@ nsUnknownContentTypeDialog.prototype = {
 
   // dumpObjectProperties
   dumpObjectProperties: function( desc, obj ) {
-    for( prop in obj ) {
+    for( var prop in obj ) {
       this.dump( desc + "." + prop + "=" );
       var val = "<undefined>";
       try {

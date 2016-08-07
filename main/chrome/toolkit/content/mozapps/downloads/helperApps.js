@@ -192,7 +192,7 @@ HelperApps.prototype = {
       types = types.QueryInterface(Components.interfaces.nsIRDFLiteral);
       types = types.Value.split(", ");
 
-      mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
+      var mimeSvc = Components.classes["@mozilla.org/mime;1"].getService(Components.interfaces.nsIMIMEService);
       return mimeSvc.getFromTypeAndExtension(types[0], null);
     }
 
@@ -488,7 +488,7 @@ HandlerOverride.prototype = {
   clearExtensions: function ()
   {
     var extArray = this.extensions.split(" ");
-    for (i = extArray.length - 1; i >= 0; --i) {
+    for (var i = extArray.length - 1; i >= 0; --i) {
       this.removeExtension(extArray[i]);
     }
   },

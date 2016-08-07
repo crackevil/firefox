@@ -793,7 +793,7 @@ var StyleSheetActor = protocol.ActorClass({
    * Clear and unmanage the original source actors for this stylesheet.
    */
   _clearOriginalSources: function() {
-    for (actor in this._originalSources) {
+    for (let actor in this._originalSources) {
       this.unmanage(actor);
     }
     this._originalSources = null;

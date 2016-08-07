@@ -31,7 +31,7 @@ var Scope = Class({
     this.listeners = this.listeners.filter(({ target, event, handler }) => {
       return !(target === t && event === e && handler === h);
     });
-    target.off(event, handler);
+    t.off(e, h);
   },
 
   clear: function(clearTarget) {

@@ -386,7 +386,7 @@ TVSimulatorService.prototype = {
     }
 
     // TVSimulatorService does not use this parameter.
-    overlayIds = Cc["@mozilla.org/array;1"]
+    let overlayIds = Cc["@mozilla.org/array;1"]
                   .createInstance(Ci.nsIMutableArray);
     return aCallback.notifySuccess(overlayIds);
   },
