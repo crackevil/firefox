@@ -97,7 +97,7 @@ this.Log = {
   enumerateInterfaces: function Log_enumerateInterfaces(aObject) {
     let interfaces = [];
 
-    for (i in Ci) {
+    for (let i in Ci) {
       try {
         aObject.QueryInterface(Ci[i]);
         interfaces.push(i);
@@ -114,7 +114,7 @@ this.Log = {
   enumerateProperties: function (aObject, aExcludeComplexTypes) {
     let properties = [];
 
-    for (p in aObject) {
+    for (let p in aObject) {
       try {
         if (aExcludeComplexTypes &&
             (typeof(aObject[p]) == "object" || typeof(aObject[p]) == "function"))

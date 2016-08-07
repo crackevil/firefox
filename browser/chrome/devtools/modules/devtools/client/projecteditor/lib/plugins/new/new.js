@@ -35,8 +35,8 @@ var NewFile = Class({
     if (cmd === "cmd-new") {
       let tree = this.host.projectTree;
       let resource = tree.getSelectedResource();
-      parent = resource.isDir ? resource : resource.parent;
-      sibling = resource.isDir ? null : resource;
+      let parent = resource.isDir ? resource : resource.parent;
+      let sibling = resource.isDir ? null : resource;
 
       if (!("createChild" in parent)) {
         return;
