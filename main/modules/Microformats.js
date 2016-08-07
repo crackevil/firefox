@@ -343,7 +343,7 @@ this.Microformats = {
     defaultGetter: function(propnode, parentnode, datatype) {
       function collapseWhitespace(instring) {
         /* Remove new lines, carriage returns and tabs */
-        outstring = instring.replace(/[\n\r\t]/gi, ' ');
+        var outstring = instring.replace(/[\n\r\t]/gi, ' ');
         /* Replace any double spaces with single spaces */
         outstring = outstring.replace(/\s{2,}/gi, ' ');
         /* Remove any double spaces that are left */
