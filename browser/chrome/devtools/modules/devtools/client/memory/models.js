@@ -494,7 +494,7 @@ let appModel = exports.app = {
           break;
 
         default:
-          assert(false, `Unexpected type of view: ${view.state}`);
+          assert(false, `Unexpected type of view: ${app.view.state}`);
       }
     })(app);
 
@@ -512,7 +512,7 @@ let appModel = exports.app = {
           break;
 
         default:
-          assert(false, `Unexpected type of view: ${view.state}`);
+          assert(false, `Unexpected type of view: ${app.view.state}`);
       }
     })(app);
   },
