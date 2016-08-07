@@ -231,9 +231,9 @@ PageMenu.prototype = {
       let element = ungenerated[last];
       ungenerated.splice(last, 1);
 
-      let i = element.childNodes.length;
+      let i = element.children.length;
       while (i-- > 0) {
-        let child = element.childNodes[i];
+        let child = element.children[i];
         if (!child.hasAttribute(this.GENERATEDITEMID_ATTR)) {
           ungenerated.push(child);
           continue;
