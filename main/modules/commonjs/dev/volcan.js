@@ -3516,7 +3516,7 @@ var TypeSystem = Class({
       write: function(input, context) {
         var output = {};
         for (var key in input) {
-          output[key] = write(value, context, types[key]);
+          output[key] = write(input[key], context, types[key]);
         }
         return output;
       }

@@ -174,6 +174,7 @@ function search (queries, options) {
   let cache = new Map();
   let queryObjs = queries.map(createQuery.bind(null, BOOKMARK_QUERY));
   let optionsObj = createQueryOptions(BOOKMARK_QUERY, options);
+  let errors = [];
 
   // Can remove after `Promise.jsm` is implemented in Bug 881047,
   // which will guarantee next tick execution

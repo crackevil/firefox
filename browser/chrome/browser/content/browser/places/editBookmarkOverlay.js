@@ -1042,7 +1042,7 @@ var gEditItemOverlay = {
       // menulist has been changed, we need to update the label of its
       // representing element.
       let menupopup = this._folderMenuList.menupopup;
-      for (menuitem of menupopup.childNodes) {
+      for (let menuitem of menupopup.childNodes) {
         if ("folderId" in menuitem && menuitem.folderId == aItemId) {
           menuitem.label = aNewTitle;
           break;
@@ -1098,7 +1098,7 @@ var gEditItemOverlay = {
               aNewParent, aNewIndex, aItemType) {
     if (!this._paneInfo.isItem ||
         !this._paneInfo.visibleRows.has("folderPicker") ||
-        this._paneInfo.itemId != aItemOd ||
+        this._paneInfo.itemId != aItemId ||
         aNewParent == this._getFolderIdFromMenuList()) {
       return;
     }
