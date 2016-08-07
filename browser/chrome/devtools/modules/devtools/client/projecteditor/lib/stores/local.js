@@ -162,7 +162,7 @@ var LocalStore = Class({
         if (info.isDir) {
           let newChildren = new Set();
           for (let childPath of info.children) {
-            childInfo = evt.data[childPath];
+            let childInfo = evt.data[childPath];
             newChildren.add(this._forPath(childPath, childInfo));
           }
           resource.setChildren(newChildren);
