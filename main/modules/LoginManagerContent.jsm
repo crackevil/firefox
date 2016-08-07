@@ -536,9 +536,14 @@ var LoginManagerContent = {
     log("onUsernameInput from", event.type);
 
     let doc = acForm.ownerDocument;
+    var hostname = LoginUtils._getPasswordOrigin(doc.documentURI);
+    if (!hostname) {
+      log("(form submission ignored -- invalid hostname)");
+      return;
+    }
     let messageManager = messageManagerFromWindow(doc.defaultView);
     let recipes = messageManager.sendSyncMessage("RemoteLogins:findRecipes", {
-      formOrigin: LoginUtils._getPasswordOrigin(doc.documentURI),
+      formOrigin: hostname,
     })[0];
 
     // Make sure the username field fillForm will use is the
@@ -1082,9 +1087,14 @@ var LoginManagerContent = {
     let form = FormLikeFactory.createFromField(aField);
 
     let doc = aField.ownerDocument;
+    var hostname = LoginUtils._getPasswordOrigin(doc.documentURI);
+    if (!hostname) {
+      log("(form submission ignored -- invalid hostname)");
+      return;
+    }
     let messageManager = messageManagerFromWindow(doc.defaultView);
     let recipes = messageManager.sendSyncMessage("RemoteLogins:findRecipes", {
-      formOrigin: LoginUtils._getPasswordOrigin(doc.documentURI),
+      formOrigin: hostname,
     })[0];
 
     let [usernameField, newPasswordField, oldPasswordField] =
