@@ -31,8 +31,8 @@
       <vbox id="leftBox" flex="1"/>
       <vbox id="rightBox" flex="1">
         <hbox align="baseline">
-<label id="version">48.0</label>
-<label id="releasenotes" class="text-link" href="https://www.mozilla.org/firefox/48.0/releasenotes/">&releaseNotes.link;</label>
+<label id="version">48.0.2</label>
+<label id="releasenotes" class="text-link" href="https://www.mozilla.org/firefox/48.0.2/releasenotes/">&releaseNotes.link;</label>
         </hbox>
 
         <label id="distribution" class="text-blurb"/>
