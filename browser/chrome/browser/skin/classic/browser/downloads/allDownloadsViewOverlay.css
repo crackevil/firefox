@@ -1,0 +1,250 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+
+/*** View and outer controls ***/
+
+#downloadsRichListBox {
+  /** The default listbox appearance comes with an unwanted margin. **/
+  -moz-appearance: none;
+  margin: 0;
+}
+
+/*** List items ***/
+
+#downloadsRichListBox > richlistitem.download {
+  height: var(--downloads-item-height);
+}
+
+.downloadTypeIcon {
+  margin: 8px 13px;
+  width: 32px;
+  height: 32px;
+}
+
+.downloadBlockedBadge {
+  margin: 0 5px;
+  background: url("chrome://browser/skin/downloads/download-blocked.svg") top right / 16px no-repeat;
+}
+
+.downloadBlockedBadge:-moz-locale-dir(rtl) {
+  background-position-x: left;
+}
+
+richlistitem.download[verdict="PotentiallyUnwanted"] .downloadBlockedBadge {
+  background-image: url("chrome://browser/skin/warning.svg");
+}
+
+richlistitem.download[verdict="Uncommon"] .downloadBlockedBadge {
+  background-image: url("chrome://browser/skin/info.svg");
+}
+
+richlistitem.download > toolbarseparator {
+  display: none;
+}
+
+.downloadTarget {
+  margin: 0;
+}
+
+.downloadDetails {
+  opacity: 0.7;
+  font-size: 95%;
+  /* Use calc() to keep the height consistent with .downloadTarget, so that the
+     progress bar can be vertically centered. */
+  margin: 4px 0 calc(1em / 0.95 - 1em);
+}
+
+.downloadDetailsNormal,
+.downloadDetailsHover,
+.downloadOpenFile,
+.downloadShowMoreInfo,
+.downloadButtonLabels {
+  display: none;
+}
+
+.downloadButton {
+  -moz-appearance: none;
+  -moz-box-align: center;
+  background: transparent;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  border: none;
+  color: inherit;
+  padding: 0 18px;
+}
+
+.downloadButton:-moz-focusring {
+  -moz-outline-radius: 50%;
+}
+
+.downloadButton > .button-box {
+  -moz-appearance: none;
+  padding: 2px !important;
+}
+
+.downloadButton > .button-box > .button-icon {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  -moz-context-properties: fill;
+  fill: currentColor;
+}
+
+.downloadButton > .button-box > .button-text {
+  display: none;
+}
+
+.downloadButton:hover > .button-box {
+  background-color: graytext;
+  color: -moz-field;
+}
+
+.downloadButton:hover:active > .button-box {
+  background-color: -moz-fieldtext;
+}
+
+richlistitem.download[selected] > .downloadButtonArea > .downloadButton:hover > .button-box {
+  background-color: HighlightText;
+  color: Highlight;
+}
+
+richlistitem.download[selected] > .downloadButtonArea > .downloadButton:hover:active > .button-box {
+  background-color: -moz-field;
+  color: -moz-fieldtext;
+}
+
+/*** Button icons ***/
+
+.downloadIconCancel > .button-box > .button-icon {
+  list-style-image: url("chrome://browser/skin/panel-icon-cancel.svg");
+}
+
+.downloadIconShow > .button-box > .button-icon {
+  list-style-image: url("chrome://browser/skin/panel-icon-folder.svg");
+}
+
+.downloadIconRetry > .button-box > .button-icon {
+  list-style-image: url("chrome://browser/skin/panel-icon-retry.svg");
+}
+
+/*** Progressmeter ***/
+/*** Common-styled progressmeter ***/
+.downloadProgress {
+  height: 8px;
+  border-radius: 1px;
+  margin: 4px 0 0;
+  margin-inline-end: 12px;
+
+  /* for overriding rules in progressmeter.css */
+  -moz-appearance: none;
+  border-style: none;
+  background-color: transparent;
+  min-width: initial;
+  min-height: initial;
+}
+
+.downloadProgress[mode="undetermined"] {
+  /* for overriding rules on global.css in Linux. */
+  -moz-binding: url("chrome://global/content/bindings/progressmeter.xml#progressmeter");
+}
+
+.downloadProgress > .progress-bar {
+  background-color: Highlight;
+
+  /* for overriding rules in progressmeter.css */
+  -moz-appearance: none;
+}
+
+.downloadProgress[paused="true"] > .progress-bar {
+  background-color: GrayText;
+}
+
+.downloadProgress[mode="undetermined"] > .progress-bar {
+  /* Make a white reflecting animation.
+     Create a gradient with 2 identical pattern, and enlarge the size to 200%.
+     This allows us to animate background-position with percentage. */
+  background-image: linear-gradient(90deg, transparent 0%,
+                                           rgba(255,255,255,0.5) 25%,
+                                           transparent 50%,
+                                           rgba(255,255,255,0.5) 75%,
+                                           transparent 100%);
+  background-blend-mode: lighten;
+  background-size: 200% 100%;
+  animation: downloadProgressSlideX 1.5s linear infinite;
+}
+
+.downloadProgress > .progress-remainder {
+  border: solid ButtonShadow;
+  border-block-start-width: 1px;
+  border-block-end-width: 1px;
+  border-inline-start-width: 0;
+  border-inline-end-width: 1px;
+  background-color: ButtonFace;
+}
+
+.downloadProgress[value="0"] > .progress-remainder {
+  border-width: 1px;
+}
+
+.downloadProgress > .progress-remainder[mode="undetermined"] {
+  border: none;
+}
+
+@keyframes downloadProgressSlideX {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/*** List items ***/
+
+:root {
+  --downloads-item-height: 6em;
+}
+
+@media (-moz-windows-default-theme) {
+  .downloadProgress > .progress-bar {
+    background-color: #3c9af8;
+  }
+}
+
+/*** Highlighted list items ***/
+
+@media (-moz-windows-default-theme) {
+  /*
+  -moz-appearance: menuitem is almost right, but the hover effect is not
+  transparent and is lighter than desired.
+
+  Copied from the autocomplete richlistbox styling in
+  toolkit/themes/windows/global/autocomplete.css
+
+  This styling should be kept in sync with the style from the above file.
+  */
+  richlistitem.download[selected] {
+    color: inherit;
+    background-color: transparent;
+    /* four gradients for the bevel highlights on each edge, one for blue background */
+    background-image:
+      linear-gradient(to bottom, rgba(255,255,255,0.9) 3px, transparent 3px),
+      linear-gradient(to right, rgba(255,255,255,0.5) 3px, transparent 3px),
+      linear-gradient(to left, rgba(255,255,255,0.5) 3px, transparent 3px),
+      linear-gradient(to top, rgba(255,255,255,0.4) 3px, transparent 3px),
+      linear-gradient(to bottom, rgba(163,196,247,0.3), rgba(122,180,246,0.3));
+    background-clip: content-box;
+    border-radius: 6px;
+    outline: 1px solid rgb(124,163,206);
+    -moz-outline-radius: 3px;
+    outline-offset: -2px;
+  }
+}

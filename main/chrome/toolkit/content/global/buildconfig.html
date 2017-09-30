@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; user-scalable=false;">
+  <title>about:buildconfig</title>
+  <link rel="stylesheet" href="chrome://global/skin/about.css" type="text/css">
+  <style type="text/css">
+    th { text-align: start; }
+    h2 { margin-top: 1.5em; }
+    th, td { vertical-align: top; }
+  </style>
+</head>
+<body class="aboutPageWideContainer">
+<h1>about:buildconfig</h1>
+<h2>Source</h2>
+<p>Built from <a href="https://hg.mozilla.org/releases/mozilla-release/rev/10a244c0f835d286d49a571dab59b698d7404e28">https://hg.mozilla.org/releases/mozilla-release/rev/10a244c0f835d286d49a571dab59b698d7404e28</a></p>
+<h2>Build platform</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>target</th>
+    </tr>
+    <tr>
+      <td>x86_64-pc-mingw32</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Build tools</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Compiler</th>
+      <th>Version</th>
+      <th>Compiler flags</th>
+    </tr>
+    <tr>
+      <td>c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/vs2015u3/VC/bin/amd64/cl.exe</td>
+      <td>19.00.24213</td>
+      <td>-TC -nologo -wd4091 -D_HAS_EXCEPTIONS=0 -W3 -Gy -Zc:inline -Gw -wd4244 -wd4267 -we4553</td>
+    </tr>
+    <tr>
+      <td>c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/vs2015u3/VC/bin/amd64/cl.exe</td>
+      <td>19.00.24213</td>
+      <td>-utf-8 -TP -nologo -wd5026 -wd5027 -Zc:sizedDealloc- -wd4091 -wd4577 -D_HAS_EXCEPTIONS=0 -W3 -Gy -Zc:inline -Gw -wd4251 -wd4244 -wd4267 -wd4800 -wd4595 -we4553 -GR-  -Zi -GL -wd4624 -wd4952 -O1 -Oi -Oy </td>
+    </tr>
+  </tbody>
+</table>
+<h2>Configure options</h2>
+<p>MOZ_AUTOMATION=1 'MOZILLABUILD=C:\mozilla-build' --host=x86_64-pc-mingw32 --target=x86_64-pc-mingw32 --enable-update-channel=release MOZ_PGO=1 WINDOWSSDKDIR=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/vs2015u3/SDK MAKECAB=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/makecab.exe --enable-jemalloc --enable-js-shell RUSTC=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/rustc/bin/rustc CARGO=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/rustc/bin/cargo --with-mozilla-api-keyfile=c:/builds/mozilla-desktop-geoloc-api.key --with-google-api-keyfile=c:/builds/gapi.data LLVM_CONFIG=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/clang/bin/llvm-config MAKE=c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/mozmake.EXE --enable-crashreporter --enable-official-branding --enable-release --enable-verify-mar</p>
+</body>
+</html>
